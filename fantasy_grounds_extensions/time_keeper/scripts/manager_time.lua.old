@@ -1,0 +1,146 @@
+local minInHour = 60;
+local hourInDay = 24;
+local daysInYear = 365;
+local leapYears = {}
+leapYears[4] = 1
+leapYears[100] = 0
+leapYears[400] = 1
+
+function onInit()
+
+end
+
+function addTimes(curTime, addTime)
+	local addMins = addTime['mins'] or 0
+	local addHours = addTime['hours'] or 0
+	local addDays = addTime['days'] or 0
+	local mins = curTime['mins'] + addMins
+	local hours = curTime['hours'] + addHours
+	local days = curTime['days'] + addDays
+	while mins >= minInHour do
+		hours = hours + 1
+		mins = mins - minInHour
+	end
+	while hours >= hourInDay do
+		days = days + 1
+		hours = hours - hourInDay
+	end
+	local retab = {}
+	retab['mins'] = mins
+	retab['hours'] = hours
+	retab['days'] = days
+	return retab
+end
+
+function gcd( m, n )
+    while n ~= 0 do
+        local q = m
+        m = n
+        n = q % n
+    end
+    return m
+end
+
+function lcm( m, n )
+    return ( m ~= 0 and n ~= 0 ) and m * n / gcd( m, n ) or 0
+end
+
+function getCycles(leapYears)
+	local tkeys = {}
+	for k,v in pairs(leapYears) do
+		table.insert(tkeys, k)
+	end
+	table.sort(tkeys)
+	local cycles = {}
+	if #tkeys == 1 then
+		for k,v in pairs(leapYears) do
+			table.insert(cycles, k)
+		end
+	else
+		local curCycle = nil
+		for _, k in ipairs(tkeys) do
+			if curCycle == nil then
+				curCycle = k
+			else
+				curCycle = lcm(curCycle, k)
+			end
+			table.insert(cycles, curCycle)
+		end
+	end
+	return cycles
+end
+
+function calcDaysPerCycle(leapYears, dayInYear)
+	local cycles = getCycles(leapYears)
+	local yearkeys = {}
+	local cycleDays = {}
+	for k,v in pairs(leapYears) do
+		table.insert(yearkeys, k)
+	end
+	table.sort(yearkeys)
+	for i = 1, #cycles do
+		local totalAddDays = 0
+		local prevAdd = 0
+		for j = 1, i do
+			local curAdd = leapYears[yearkeys[j]]
+			local numberAdds = cycles[i] / yearkeys[j]
+			if curAdd == 0 then
+				totalAddDays = totalAddDays - numberAdds * prevAdd
+			else
+				totalAddDays = totalAddDays + numberAdds * curAdd
+			end
+			prevAdd = curAdd
+		end
+		table.insert(cycleDays, cycles[i]*daysInYear + totalAddDays)
+	end
+	return cycleDays
+end
+
+function getYear(days, leapYears, daysInYear)
+	local cycleYears = getCycles(leapYears)
+	local cycleDays = calcDaysPerCycle(leapYears, daysInYear)
+	local yearkeys = {}
+	for k, v in pairs(leapYears) do
+		table.insert(yearkeys, k)
+	end
+	table.sort(yearkeys)
+	local years = 0
+	local remainingDays = days
+	for i = #cycleDays, 1, -1 do
+		cycles = math.floor(remainingDays/cycleDays[i])
+		print(cycles)
+		yearsInCycles = yearkeys[i]
+		print(yearsInCycles)
+		years = years + yearsInCycles * cycles
+		print(years)
+		remainingDays = remainingDays % cycleDays[i]
+		print(remainingDays)
+	end
+	years = years + math.floor(remainingDays/daysInYear)
+	remainingDays = remainingDays % daysInYear
+	retab = {years, remainingDays}
+	return retab
+end
+
+function addTurn(curTime)
+	turn = {'mins' = 10}
+	curTime = addTimes(curTime, turn)
+end
+
+function calcSolarDeclination(daysAfterWinterSolsticeNH, worldTable)
+	local rad = math.rad
+	local deg = math.deg
+	local floor = math.floor
+	local frac = function(n) return n - floor(n) end
+	local cos = function(d) return math.cos(rad(d)) end
+	local acos = function(d) return deg(math.acos(d)) end
+	local sin = function(d) return math.sin(rad(d)) end
+	local asin = function(d) return deg(math.asin(d)) end
+	local tan = function(d) return math.tan(rad(d)) end
+	local atan = function(d) return deg(math.atan(d)) end
+	local pi = math.pi
+	local eff_ax_tilt = sin(-rad(worldTable['axial_tilt'])
+	local eff_orb_ecc = (deg(360)/pi)*(worldTable['eccentricity']*((deg(360)/worldTable['daysInYear'])*(daysAfterWinterSolsticeNH - worldTable['perihelionOffset'])))
+	local eff_days_since_solstice = cos((deg(360)/worldTable['daysInYear'])*daysAfterWinterSolsticeNH)
+	local declination = asin(eff_ax_tilt * (eff_days_since_solstice + eff_orb_ecc))
+end

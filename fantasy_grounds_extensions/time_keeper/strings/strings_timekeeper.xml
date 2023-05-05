@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- Calendar -->
+	<string name="calendar_window_title">Calendar</string>
+	<string name="calendar_msg_empty">Calendar not selected for this campaign.</string>
+	<string name="calendar_msg_activate">Activate calendar module to set a calendar for this campaign.</string>
+	<string name="calendar_label_date">Date</string>
+	<string name="calendar_label_year">Year</string>
+	<string name="calendar_label_epoch">Era</string>
+	<string name="calendar_label_month">Month</string>
+	<string name="calendar_button_modules">Modules</string>
+	<string name="calendar_button_logview">View Log Entry</string>
+	<string name="calendar_button_logadd">Add Log Entry</string>
+	<string name="calendar_button_logviewall">All Logs</string>
+	<string name="calendar_menu_reset">Reset Calendar</string>
+	<string name="calendar_menu_resetconfirm">Confirm Reset</string>
+	<string name="calendar_menu_eventdelete">Delete Event</string>
+	<string name="calendar_menu_eventdeleteconfirm">Confirm Delete</string>
+	<string name="calendar_tooltip_dateoutput">Output Date To Chat</string>
+	<string name="calendar_tooltip_timeoutput">Output Time To Chat</string>
+	<string name="calendar_tooltip_dateset">Set Selected Date as Current Date</string>
+
+	<!-- Calendar log -->
+	<string name="calendar_loglist_title">Logs</string>
+	<string name="calendar_logentry_emptyname">&#171; New Log Entry &#187;</string>
+	<string name="calendar_logentry_gmheader">GM</string>
+	<string name="calendar_logentry_pcheader">PLAYER</string>
+	
+	<!-- Moon tracker -->
+	<string name="moontracker_tooltip_moonbutton">Configure Campaign Moons</string>
+	<string name="moontracker_configuration_window_title">Moon Tracker Configuration</string>
+	<string name="moontracker_configuration_period_header">Period</string>
+	<string name="moontracker_configuration_name_header">Moon Name</string>
+	<string name="moontracker_configuration_shift_header">Shift</string>
+	<string name="moontracker_configuration_period_tooltip">The number of days between one new moon and the next.</string>
+	<string name="moontracker_configuration_shift_tooltip">The number of phases to shift the moon's cycle.</string>
+</root>

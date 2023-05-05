@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	<!-- Note: FGF tags processed first for FG Classic, and TTF tags processed first for FGU -->
+	<!-- Calendar -->
+	<font name="calendarday">
+		<fgffile name="graphics/fonts/regular-10.fgf" />
+		<ttf file="graphics/fonts/Candara.ttf" name="Candara" size="15" />
+		<color value="#000000" />
+	</font>
+	<font name="calendarday-b">
+		<fgffile name="graphics/fonts/regular-10.fgf" />
+		<ttf file="graphics/fonts/Candara.ttf" name="Candara" size="15" />
+		<color value="#000000" />
+	</font>
+	<font name="calendarday-bi">
+		<fgffile name="graphics/fonts/regular-10.fgf" />
+		<ttf file="graphics/fonts/Candara.ttf" name="Candara" size="15" />
+		<color value="#000000" />
+	</font>
+	<font name="calendarbold">
+		<fgffile name="graphics/fonts/bold-10.fgf" />
+		<ttf file="graphics/fonts/Candara Bold.ttf" name="Candara Bold" size="15" />
+		<color value="#000000" />
+	</font>
+	<font name="calendarselecttitle">
+		<fgffile name="graphics/fonts/bold-10.fgf" />
+		<ttf file="graphics/fonts/Candara Bold.ttf" name="Candara Bold" size="15" />
+		<color value="#000000" />
+	</font>
+	<font name="calendarselectbody">
+		<fgffile name="graphics/fonts/regular-10.fgf" />
+		<ttf file="graphics/fonts/Candara.ttf" name="Candara" size="15" />
+		<color value="#000000" />
+	</font>
+	<font name="calendarmessage">
+		<fgffile name="graphics/fonts/italic-10.fgf" />
+		<ttf file="graphics/fonts/Candara.ttf" name="Candara Italic" size="15" />
+		<color value="#000000" />
+	</font>
+</root>

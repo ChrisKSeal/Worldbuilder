@@ -1,0 +1,3 @@
+Dungeon movement = movement per round (10s) * 3 per 10 minute turn assuming mapping searching etc.
+Fleeing = 30 x dungeon movement
+No mapping etc. 10 times dungeon movement

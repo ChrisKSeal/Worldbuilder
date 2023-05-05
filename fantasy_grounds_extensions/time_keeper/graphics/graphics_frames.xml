@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Calendar Frames -->
+	<framedef name="calendar">
+		<bitmap file="graphics/frames/charsheet.png" />
+		<offset>25,40,25,25</offset>
+		<insideoffset>0,0,7,7</insideoffset>
+	</framedef>
+	<framedef name="calendarhighlight">
+		<bitmap file="graphics/frames/calendarhighlight.png"/>
+		<offset>5,5,5,5</offset>
+    </framedef>
+	<framedef name="calendarselectentry">
+		<bitmap file="graphics/frames/fieldlight.png" />
+		<offset>12,12,12,12</offset>
+    </framedef>
+	<framedef name="calendarmonthentry">
+		<bitmap file="graphics/frames/fielddark.png" />
+		<offset>12,12,12,12</offset>
+    </framedef>
+</root>

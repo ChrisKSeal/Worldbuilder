@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.0">
+	<announcement text="A better calendar and time manager based on the moon tracker by Andraax." font="emotefont" icon="moonphase3" />
+	<properties>
+	  <name>Time Keeper</name>
+	  <version>1.00</version>
+	  <author>Chris</author>
+	  <description>An extension for improving the calendar.</description>
+	  <ruleset>Any</ruleset>
+	</properties>
+	<base>
+		<!-- Graphics -->
+		<includefile source="graphics/graphics_fonts.xml" />
+		<includefile source="graphics/graphics_frames.xml" />
+		<includefile source="graphics/graphics_icons.xml" />
+		
+		<!-- Strings -->
+		<includefile source="strings/strings_timekeeper.xml" />
+	  
+		<!-- High-level scripts -->
+		<script name="CalendarManager" file="scripts/manager_calendar.lua" />
+		<!--script name="DungeonTimeManager" file="scripts/manager_dungeon_time.lua" /-->
+
+		<!-- Utilities -->
+		<includefile source="utility/template_moon.xml" />
+		<includefile source="utility/utility_calendar.xml" />
+		<includefile source="utility/utility_calendar_log.xml" />
+		<includefile source="utility/utility_moon.xml" />
+
+	</base>
+</root>
