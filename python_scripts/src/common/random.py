@@ -9,8 +9,7 @@ MODIFIERS = r"[+]|[-]|[*]|[/]|x"  # pylint: disable=invalid-name
 
 
 class DiceRoller:  # pylint: disable=too-few-public-methods
-    """A helper class to generate random numbers using the pseudo
-    number generator.
+    """A helper class to generate random numbers using the pseudorandom generator.
 
     Takes an optional seed in case we want to recreate the exact same conditions.
     The seed should be stored in the generated YAML so we can use this at a later stage.
@@ -39,10 +38,9 @@ class DiceRoller:  # pylint: disable=too-few-public-methods
     ) -> List[
         Tuple[
             Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]
-        ]
+        ],
     ]:
-        """Parse a dice string into a tuple of values that can be processed by the
-        roll function.
+        """Parse a dice string into a tuple that can be used by the roll function.
 
         Args:
             dicestring (str): the string to be parsed
@@ -63,7 +61,6 @@ class DiceRoller:  # pylint: disable=too-few-public-methods
                 or does not contain a '(int|None)d(int)' or '(int|None)D(int)' in accordance with
                 standard TTRPG nomenclature
         """
-
         number: int = 1
         size: int = 1
         modifier: int = 0
@@ -117,7 +114,7 @@ class DiceRoller:  # pylint: disable=too-few-public-methods
     def __parse_dice_tuple(
         self, dice_tuple: Tuple[int, int, int, Optional[str], Optional[str]]
     ) -> int | float:
-        """Process a roll tuple and roll the dice
+        """Process a roll tuple and roll the dice.
 
         Args:
             dice_tuple (tuple(int, int, int, str|None, str|None)): A dice tuple as
@@ -144,7 +141,7 @@ class DiceRoller:  # pylint: disable=too-few-public-methods
         return cumulative_sum
 
     def roll(self, variable_input: int | str) -> int | float:
-        """Generate a dice roll of size
+        """Generate a dice roll of size.
 
         Args:
             variable_input (int | str): either an integer in which case this is

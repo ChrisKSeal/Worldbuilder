@@ -1,4 +1,4 @@
-"""Module to load and lookup RPG tables"""
+"""Module to load and lookup RPG tables."""
 # from pathlib import Path
 import re
 from typing import Dict, List, Optional
@@ -7,7 +7,7 @@ from typing import Dict, List, Optional
 
 
 class Table:
-    """Class to hold a representation of a table to roll on
+    """Class to hold a representation of a table to roll on.
 
     Attributes:
         name (str): the name of the table
@@ -23,6 +23,7 @@ class Table:
         max_roll: Optional[int],
         min_roll: int = 1,
     ) -> None:
+        """Class initialisation."""
         self.name = name
         self.data = Table.parse_input(data)
         self.min_roll = min_roll
@@ -32,7 +33,7 @@ class Table:
 
     @staticmethod
     def parse_input(data: List[str]) -> Dict[int, str]:
-        """Unpacks the entries of a list into a dict for rolling against
+        """Unpacks the entries of a list into a dict for rolling against.
 
         Unpacking each entry is based on the structure of the string. If the string
         matches one of the regular expressions that represent the 'number, value' or
@@ -74,7 +75,7 @@ class Table:
         return return_dictionary
 
     def get_value(self, roll: int, table: Dict[int, str]) -> str | int | float:
-        """Look up a row in a table and return the value
+        """Look up a row in a table and return the value.
 
         Args:
             roll (int): The value to use in the look up

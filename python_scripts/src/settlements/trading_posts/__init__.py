@@ -1,1 +1,1 @@
-# pylint: disable=missing-module-docstring
+"""Scripts to create a Trading Post."""

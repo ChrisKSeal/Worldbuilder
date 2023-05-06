@@ -21,6 +21,17 @@ repos:
    hooks:
     - id: black
       args: [--config=pyproject.toml]
+ - repo: https://github.com/adamchainz/blacken-docs
+   rev: "1.13.0"  # replace with latest tag on GitHub
+   hooks:
+    - id: blacken-docs
+      additional_dependencies:
+       - black==23.3.0
+ - repo: https://github.com/PyCQA/pydocstyle
+   rev: "6.3.0"
+   hooks:
+    - id: pydocstyle
+      args: [python_scripts/src]
  - repo: https://github.com/pre-commit/mirrors-mypy
    rev: v1.2.0
    hooks:
