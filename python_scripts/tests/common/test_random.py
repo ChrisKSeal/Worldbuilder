@@ -1,11 +1,13 @@
 # pylint: disable=redefined-outer-name,missing-module-docstring,missing-function-docstring,protected-access
+from typing import List, Optional, Tuple
+
 import pytest
 
-from src.common.random import DiceRoller
+from python_scripts.src.common.random import DiceRoller
 
 
 @pytest.fixture
-def dice():
+def dice() -> DiceRoller:
     return DiceRoller(seed=123456789)
 
 
@@ -20,13 +22,30 @@ def dice():
         ("d20*3", [((1, 20, 3, "*", None), None)]),
         ("d20x3", [((1, 20, 3, "x", None), None)]),
         ("d100 / 5", [((1, 100, 5, "/", None), None)]),
-        ("d4+d6", [((1, 4, 0, None, None), "+"), ((1, 6, 0, None, None), None)]),
-        ("d4+3 - 2d6/2", [((1, 4, 3, "+", None), "-"), ((2, 6, 2, "/", None), None)]),
-        ("2d2r3/2-d6", [((2, 2, 2, "/", "r3"), "-"), ((1, 6, 0, None, None), None)]),
+        (
+            "d4+d6",
+            [((1, 4, 0, None, None), "+"), ((1, 6, 0, None, None), None)],
+        ),
+        (
+            "d4+3 - 2d6/2",
+            [((1, 4, 3, "+", None), "-"), ((2, 6, 2, "/", None), None)],
+        ),
+        (
+            "2d2r3/2-d6",
+            [((2, 2, 2, "/", "r3"), "-"), ((1, 6, 0, None, None), None)],
+        ),
     ),
 )
-def test_string_parser(test_value, expected_value, dice):
-    assert dice._DiceRoller__parse_dice_string(test_value) == expected_value
+def test_string_parser(
+    test_value: str,
+    expected_value: List[
+        Tuple[
+            Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]
+        ]
+    ],
+    dice: DiceRoller,
+) -> None:
+    assert dice.__parse_dice_string(test_value) == expected_value
 
 
 @pytest.mark.parametrize(
@@ -40,8 +59,12 @@ def test_string_parser(test_value, expected_value, dice):
         ((2, 20, 2, "/", None), 16.5),
     ),
 )
-def test_parse_dice_tuple(test_value, expected_value, dice):
-    assert dice._DiceRoller__parse_dice_tuple(test_value) == expected_value
+def test_parse_dice_tuple(
+    test_value: Tuple[int, int, int, Optional[str], Optional[str]],
+    expected_value: int,
+    dice: DiceRoller,
+) -> None:
+    assert dice.__parse_dice_tuple(test_value) == expected_value
 
 
 @pytest.mark.parametrize(
@@ -56,7 +79,11 @@ def test_parse_dice_tuple(test_value, expected_value, dice):
         ("2d20/2", 16.5),
     ),
 )
-def test_roll(test_value, expected_value, dice):
+def test_roll(
+    test_value: str,
+    expected_value: int,
+    dice: DiceRoller,
+) -> None:
     """Given we are reseeding the DiceRoller with the same seed, the expected values are
     consistent for testing purposes."""
     assert dice.roll(test_value) == expected_value  # nosec

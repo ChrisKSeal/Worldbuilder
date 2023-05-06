@@ -31,7 +31,7 @@ class Table:
         self.max_roll = max_roll
 
     @staticmethod
-    def parse_input(data: List[str]) -> Dict:
+    def parse_input(data: List[str]) -> Dict[int, str]:
         """Unpacks the entries of a list into a dict for rolling against
 
         Unpacking each entry is based on the structure of the string. If the string
@@ -47,8 +47,8 @@ class Table:
         """
         return_dictionary = {}
         count = 1
-        number_value = re.compile("^\d+, ")
-        number_number_value = re.compile("^\d+[-]\d+, ")
+        number_value = re.compile(r"^\d+, ")
+        number_number_value = re.compile(r"^\d+[-]\d+, ")
         for datum in data:
             number = None
             match = re.match(number_value, datum)
@@ -61,7 +61,7 @@ class Table:
                 return_dictionary[count] = datum
             else:
                 if match.re == number_value and number:
-                    numberind = int(number[:-1])  # type: ignore[assignment]
+                    numberind = int(number[:-1])
                     return_dictionary[numberind] = value
                 elif number:
                     number = number[:-1]  # strip the trailing ,
@@ -72,3 +72,14 @@ class Table:
                         return_dictionary[numberind] = value
             count = max(return_dictionary.keys())
         return return_dictionary
+
+    def get_value(self, roll: int, table: Dict[int, str]) -> str | int | float:
+        """Look up a row in a table and return the value
+
+        Args:
+            roll (int): The value to use in the look up
+
+        Returns:
+            str|int|float: The value looked up
+        """
+        return table[roll]

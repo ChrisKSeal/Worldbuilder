@@ -1,23 +1,54 @@
+---
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
-    hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-toml
-    -   id: check-json
-    -   id: check-ast
-    -   id: check-xml
-    -   id: check-added-large-files
-    -   id: pretty-format-json
--   repo: https://github.com/psf/black
-    rev: 23.3.0
-    hooks:
-    -   id: black
-        args: [--config=pyproject.toml]
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.2.0
-    hooks:
-    -   id: mypy
-        args: [--strict, --ignore-missing-imports]
+ - repo: https://github.com/pre-commit/pre-commit-hooks
+   rev: v4.4.0
+   hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-yaml
+    - id: check-toml
+    - id: check-json
+    - id: check-ast
+    - id: check-xml
+    - id: check-added-large-files
+    - id: pretty-format-json
+ - repo: https://github.com/PyCQA/isort
+   rev: 5.12.0
+   hooks:
+    - id: isort
+ - repo: https://github.com/psf/black
+   rev: 23.3.0
+   hooks:
+    - id: black
+      args: [--config=pyproject.toml]
+ - repo: https://github.com/pre-commit/mirrors-mypy
+   rev: v1.2.0
+   hooks:
+    - id: mypy
+      args: [--strict, --ignore-missing-imports]
+      name: mypy (common)
+      files: python_scripts/src/common/
+      additional_dependencies:
+       - types-PyYAML
+ - repo: local
+   hooks:
+    - id: pylint
+      name: pylint
+      entry: poetry run pylint
+      language: python
+      files: python_scripts/src
+      additional_dependencies:
+       - PyYAML
+ - repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
+   rev: v1.0.6
+   hooks:
+    - id: python-bandit-vulnerability-check
+ - repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
+   rev: v1.0.6
+   hooks:
+    - id: python-bandit-vulnerability-check
+ - repo: https://github.com/python-poetry/poetry
+   rev: '1.4.0'  # add version here
+   hooks:
+    - id: poetry-check
+    - id: poetry-lock

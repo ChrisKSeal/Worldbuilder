@@ -5,8 +5,10 @@ import re
 from os import urandom
 from typing import List, Optional, Tuple
 
+MODIFIERS = r"[+]|[-]|[*]|[/]|x"  # pylint: disable=invalid-name
 
-class DiceRoller:
+
+class DiceRoller:  # pylint: disable=too-few-public-methods
     """A helper class to generate random numbers using the pseudo
     number generator.
 
@@ -31,11 +33,14 @@ class DiceRoller:
         else:
             self.seed = seed
         rdm.seed(self.seed)
-        return None
 
-    def __parse_dice_string(
+    def __parse_dice_string(  # pylint: disable=too-many-locals
         self, dicestring: str
-    ) -> List[Tuple[Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]]]:
+    ) -> List[
+        Tuple[
+            Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]
+        ]
+    ]:
         """Parse a dice string into a tuple of values that can be processed by the
         roll function.
 
@@ -58,7 +63,7 @@ class DiceRoller:
                 or does not contain a '(int|None)d(int)' or '(int|None)D(int)' in accordance with
                 standard TTRPG nomenclature
         """
-        MODIFIERS = r"[+]|[-]|[*]|[/]|x"  # pylint: disable=invalid-name
+
         number: int = 1
         size: int = 1
         modifier: int = 0
@@ -72,8 +77,7 @@ class DiceRoller:
         count = 0
         return_list = []
         for match in dice_matches:
-            is_dice = re.search(r"d\d+", match)
-            if is_dice:
+            if re.search(r"d\d+", match):
                 if count > 0:
                     dice_operator = modifier_types[count - 1]
                     return_list.append(
@@ -89,7 +93,6 @@ class DiceRoller:
                     dice_operator = None
                 dice = match.split("d")
                 dice = [dice_str for dice_str in dice if dice_str != ""]
-                print(dice)
                 if len(dice) == 1:
                     number = 1
                     size_str = dice[0]
@@ -98,7 +101,6 @@ class DiceRoller:
                     size_str = dice[1]
                 has_roll_type = re.search(r"[a-ce-wyz]", size_str)
                 if has_roll_type:
-                    print(has_roll_type.span())
                     size = int(size_str[: has_roll_type.span()[0]])
                     roll_type = size_str[has_roll_type.span()[0] :]
                 else:
@@ -132,7 +134,7 @@ class DiceRoller:
             return cumulative_sum + modifier
         if modifier_type == "-":
             return cumulative_sum - modifier
-        if modifier_type == "*" or modifier_type == "x":
+        if modifier_type in ("*", "x"):
             return cumulative_sum * modifier
         if modifier_type == "/":
             if modifier != 0:
@@ -168,7 +170,7 @@ class DiceRoller:
                     cumulative_sum += results[i][0]
                 elif modifier_type == "-":
                     cumulative_sum -= results[i][0]
-                elif modifier_type == "*" or modifier_type == "x":
+                elif modifier_type in ("*", "x"):
                     cumulative_sum *= results[i][0]
                 elif modifier_type == "/":
                     if results[i][0] != 0:

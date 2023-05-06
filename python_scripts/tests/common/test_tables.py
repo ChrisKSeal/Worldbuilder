@@ -1,7 +1,9 @@
 # pylint: disable=redefined-outer-name,missing-module-docstring,missing-function-docstring,protected-access
+from typing import Dict, List
+
 import pytest
 
-from src.common.tables import Table
+from python_scripts.src.common.tables import Table
 
 
 @pytest.mark.parametrize(
@@ -21,5 +23,8 @@ from src.common.tables import Table
         ),
     ),
 )
-def test_parse_input(test_value, expected_value):
+def test_parse_input(
+    test_value: List[str],
+    expected_value: Dict[int, str],
+) -> None:
     assert Table.parse_input(test_value) == expected_value
