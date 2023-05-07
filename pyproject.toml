@@ -10,6 +10,10 @@ readme = "README.md"
 python = "^3.11"
 pyaml = "^23.5.7"
 types-PyYAML = "^6.0.12"
+dependency-injector = "^4.41.0"
+pydantic = "^1.10.7"
+tomlkit = "^0.11.8"
+pydantic-config = "^0.1.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.2.0"
@@ -27,9 +31,10 @@ pre-commit = "^3.3.1"
 blacken-docs = "^1.13.0"
 pydocstyle = "^6.3.0"
 yamllint = "^1.31.0"
+pytest-mock = "^3.10.0"
 
 [tool.black]
-line-length = 79
+line-length = 89
 
 [tool.pycln]
 all = true

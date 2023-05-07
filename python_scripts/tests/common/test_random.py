@@ -39,13 +39,11 @@ def dice() -> DiceRoller:
 def test_string_parser(
     test_value: str,
     expected_value: List[
-        Tuple[
-            Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]
-        ]
+        Tuple[Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]]
     ],
     dice: DiceRoller,
 ) -> None:
-    assert dice.__parse_dice_string(test_value) == expected_value
+    assert dice._DiceRoller__parse_dice_string(test_value) == expected_value  # type: ignore[attr-defined]
 
 
 @pytest.mark.parametrize(
@@ -64,7 +62,7 @@ def test_parse_dice_tuple(
     expected_value: int,
     dice: DiceRoller,
 ) -> None:
-    assert dice.__parse_dice_tuple(test_value) == expected_value
+    assert dice._DiceRoller__parse_dice_tuple(test_value) == expected_value  # type: ignore[attr-defined]
 
 
 @pytest.mark.parametrize(

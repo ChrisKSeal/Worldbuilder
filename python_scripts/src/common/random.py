@@ -5,10 +5,12 @@ import re
 from os import urandom
 from typing import List, Optional, Tuple
 
+from python_scripts.src.common.logging import LoggedBaseClass
+
 MODIFIERS = r"[+]|[-]|[*]|[/]|x"  # pylint: disable=invalid-name
 
 
-class DiceRoller:  # pylint: disable=too-few-public-methods
+class DiceRoller(LoggedBaseClass):  # pylint: disable=too-few-public-methods
     """A helper class to generate random numbers using the pseudorandom generator.
 
     Takes an optional seed in case we want to recreate the exact same conditions.
@@ -27,6 +29,7 @@ class DiceRoller:  # pylint: disable=too-few-public-methods
         Args:
             seed (Optional[int]): the random number seed if one is provided.
         """
+        super().__init__()
         if not seed:
             self.seed = int.from_bytes(urandom(8), "big", signed=False)
         else:
@@ -35,11 +38,7 @@ class DiceRoller:  # pylint: disable=too-few-public-methods
 
     def __parse_dice_string(  # pylint: disable=too-many-locals
         self, dicestring: str
-    ) -> List[
-        Tuple[
-            Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]
-        ],
-    ]:
+    ) -> List[Tuple[Tuple[int, int, int, Optional[str], Optional[str]], Optional[str]],]:
         """Parse a dice string into a tuple that can be used by the roll function.
 
         Args:
