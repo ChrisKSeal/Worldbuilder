@@ -5,7 +5,12 @@ import re
 from os import urandom
 from typing import List, Optional, Tuple
 
-from python_scripts.src.common.logging import LoggedBaseClass
+from python_scripts.src.common.config import (  # pylint: disable=import-error
+    LoggingConfig,
+)
+from python_scripts.src.common.logging import (  # pylint: disable=import-error
+    LoggedBaseClass,
+)
 
 MODIFIERS = r"[+]|[-]|[*]|[/]|x"  # pylint: disable=invalid-name
 
@@ -20,7 +25,7 @@ class DiceRoller(LoggedBaseClass):  # pylint: disable=too-few-public-methods
         seed (Optional[int]): the random number seed if one is provided.
     """
 
-    def __init__(self, seed: Optional[int] = None) -> None:
+    def __init__(self, config: LoggingConfig, seed: Optional[int] = None) -> None:
         """Initialise the random number generator.
 
         Take the random number seed if it is provided, or generate
@@ -29,7 +34,7 @@ class DiceRoller(LoggedBaseClass):  # pylint: disable=too-few-public-methods
         Args:
             seed (Optional[int]): the random number seed if one is provided.
         """
-        super().__init__()
+        super().__init__(config)
         if not seed:
             self.seed = int.from_bytes(urandom(8), "big", signed=False)
         else:

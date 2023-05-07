@@ -1,13 +1,18 @@
 """Module to load and lookup RPG tables."""
-# from pathlib import Path
+
 import json
 import random as rdm
 import re
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from python_scripts.src.common.containers import Dice
-from python_scripts.src.common.logging import LoggedBaseClass
+from python_scripts.src.common.config import (  # pylint: disable=import-error
+    LoggingConfig,
+)
+from python_scripts.src.common.containers import Dice  # pylint: disable=import-error
+from python_scripts.src.common.logging import (  # pylint: disable=import-error
+    LoggedBaseClass,
+)
 
 
 class Table(LoggedBaseClass):
@@ -20,15 +25,16 @@ class Table(LoggedBaseClass):
         max_roll (int): the maximum roll that the table will accept as an input
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         name: str,
         data: List[str],
+        config: LoggingConfig,
         max_roll: Optional[int] = None,
         min_roll: int = 1,
     ) -> None:
         """Class initialisation."""
-        super().__init__()
+        super().__init__(config)
         self.name = name
         self.data = self.parse_input(data)
         self.min_roll = min_roll
@@ -131,7 +137,7 @@ class Table(LoggedBaseClass):
         return self.get_value(lookup_roll)
 
 
-def read_json_files(filepath: Path) -> List[Table]:
+def read_json_files(filepath: Path, config: LoggingConfig) -> List[Table]:
     """Read in a YAML file and create Table objects.
 
     Args:
@@ -153,6 +159,7 @@ def read_json_files(filepath: Path) -> List[Table]:
             ):
                 continue
             current_table = Table(
+                config=config,
                 name=table["name"],
                 data=table["data"],
             )

@@ -6,7 +6,7 @@ from pydantic import BaseModel  # pylint: disable=E0611
 from pydantic_config import SettingsModel
 
 
-class LoggingModel(BaseModel):  # type: ignore[misc]
+class LoggingConfig(BaseModel):  # type: ignore[misc]
     """Pydantic dataclass to hold the logging details.
 
     Attributes:
@@ -21,10 +21,10 @@ class WorldBuilderConfig(SettingsModel):  # type: ignore[misc]
     """Pydantic settings from pydantic_settings package.
 
     Attributes:
-        logging (LoggingModel): Logging specific config.
+        logging (LoggingConfig): Logging specific config.
     """
 
-    logging: LoggingModel
+    logging: LoggingConfig
 
     class Config:  # pylint disable=R0903
         """Class specific config."""
